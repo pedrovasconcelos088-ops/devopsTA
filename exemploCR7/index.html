@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cristiano Ronaldo | O Legado do CR7</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800&family=Teko:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#FACC15',
+                            500: '#EAB308',
+                            600: '#CA8A04',
+                            700: '#A16207',
+                        },
+                        cr7red: '#DC2626',
+                        cr7dark: '#0A0A0C',
+                        cr7card: '#121216',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0A0A0C;
+            color: #F3F4F6;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF5C0 0%, #EAB308 50%, #9A6A00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.25);
+            border: 1px solid rgba(234, 179, 8, 0.4);
+        }
+
+        .red-border-glow {
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.25);
+            border: 1px solid rgba(220, 38, 38, 0.4);
+        }
+
+        .glass-panel {
+            background: rgba(18, 18, 22, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: linear-gradient(180deg, #DC2626 0%, #EAB308 50%, #DC2626 100%);
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line::before {
+                left: 20px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #EAB308;
+        }
+
+        /* Parallax header effect */
+        .hero-bg {
+            background: radial-gradient(circle at 50% 30%, rgba(220, 38, 38, 0.15) 0%, rgba(10, 10, 12, 0.95) 70%),
+                        url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold-500 selection:text-black">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center space-x-2 group">
+                    <span class="font-display text-4xl font-bold tracking-wider gold-gradient-text group-hover:scale-105 transition-transform">CR7</span>
+                    <span class="text-xs uppercase tracking-widest text-gray-400 font-semibold border-l border-gray-700 pl-2">O Legado</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#origens" class="hover:text-gold-400 transition-colors">Origens</a>
+                    <a href="#carreira" class="hover:text-gold-400 transition-colors">Carreira</a>
+                    <a href="#selecao" class="hover:text-gold-400 transition-colors">Portugal</a>
+                    <a href="#conquistas" class="hover:text-gold-400 transition-colors">Títulos</a>
+                    <a href="#estatisticas" class="hover:text-gold-400 transition-colors">Números</a>
+                    <a href="#quotes" class="hover:text-gold-400 transition-colors">Frases</a>
+                </div>
+
+                <!-- SIUUU Button -->
+                <div class="hidden sm:block">
+                    <button id="siuuBtn" onclick="triggerSiuuuEffect()" class="relative group px-6 py-2.5 rounded-full bg-gradient-to-r from-red-600 via-gold-500 to-red-600 bg-[length:200%_auto] hover:bg-right transition-all duration-500 font-bold text-black tracking-wider shadow-lg hover:shadow-gold-500/30 flex items-center space-x-2">
+                        <i class="fa-solid fa-bolt text-black group-hover:rotate-12 transition-transform"></i>
+                        <span>CELEBRAR SIUUU!</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center space-x-3">
+                    <button id="siuuBtnMobile" onclick="triggerSiuuuEffect()" class="px-3 py-1.5 rounded-full bg-gold-500 text-black font-bold text-xs">
+                        SIUUU!
+                    </button>
+                    <button id="mobileMenuBtn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-cr7card border-b border-white/10 px-4 pt-2 pb-6 space-y-3">
+            <a href="#origens" class="mobile-nav-link block text-gray-300 hover:text-gold-400 py-2">Origens (1985-2003)</a>
+            <a href="#carreira" class="mobile-nav-link block text-gray-300 hover:text-gold-400 py-2">Trajetória nos Clubes</a>
+            <a href="#selecao" class="mobile-nav-link block text-gray-300 hover:text-gold-400 py-2">Seleção de Portugal</a>
+            <a href="#conquistas" class="mobile-nav-link block text-gray-300 hover:text-gold-400 py-2">Títulos e Galeria</a>
+            <a href="#estatisticas" class="mobile-nav-link block text-gray-300 hover:text-gold-400 py-2">Números Históricos</a>
+            <a href="#quotes" class="mobile-nav-link block text-gray-300 hover:text-gold-400 py-2">Frases Marcantes</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-12 hero-bg overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-cr7dark via-transparent to-transparent"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center">
+            
+            <div class="inline-flex items-center space-x-2 bg-white/5 border border-gold-500/30 px-4 py-1.5 rounded-full mb-6 backdrop-blur-md">
+                <i class="fa-solid fa-crown text-gold-400 text-sm"></i>
+                <span class="text-xs font-semibold tracking-widest text-gold-400 uppercase">O Maior Artilheiro da História do Futebol</span>
+            </div>
+
+            <h1 class="font-display text-7xl sm:text-9xl font-extrabold tracking-tight uppercase leading-none mb-4">
+                CRISTIANO <span class="gold-gradient-text">RONALDO</span>
+            </h1>
+
+            <p class="max-w-2xl text-lg sm:text-xl text-gray-300 font-light italic mb-8">
+                "Eu não sigo os recordes, os recordes é que me seguem."
+            </p>
+
+            <!-- Metrics Quick Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 w-full max-w-4xl my-8">
+                <div class="glass-panel p-5 rounded-2xl gold-border-glow transform hover:-translate-y-1 transition-all">
+                    <span class="block text-4xl sm:text-5xl font-display font-bold gold-gradient-text counter" data-target="900">0</span>
+                    <span class="text-xs uppercase tracking-wider text-gray-400 mt-1 font-semibold">+ Gols Oficiais</span>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl gold-border-glow transform hover:-translate-y-1 transition-all">
+                    <span class="block text-4xl sm:text-5xl font-display font-bold gold-gradient-text counter" data-target="5">0</span>
+                    <span class="text-xs uppercase tracking-wider text-gray-400 mt-1 font-semibold">Bolas de Ouro</span>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl gold-border-glow transform hover:-translate-y-1 transition-all">
+                    <span class="block text-4xl sm:text-5xl font-display font-bold gold-gradient-text counter" data-target="5">0</span>
+                    <span class="text-xs uppercase tracking-wider text-gray-400 mt-1 font-semibold">Champions League</span>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl gold-border-glow transform hover:-translate-y-1 transition-all">
+                    <span class="block text-4xl sm:text-5xl font-display font-bold gold-gradient-text counter" data-target="130">0</span>
+                    <span class="text-xs uppercase tracking-wider text-gray-400 mt-1 font-semibold">+ Gols por Portugal</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                <a href="#origens" class="px-8 py-3.5 rounded-full bg-gold-500 hover:bg-gold-400 text-black font-bold tracking-wider transition-all shadow-lg shadow-gold-500/20">
+                    CONHEÇA A HISTÓRIA
+                </a>
+                <a href="#estatisticas" class="px-8 py-3.5 rounded-full glass-panel hover:bg-white/10 text-white font-bold tracking-wider transition-all border border-white/20">
+                    VER ESTATÍSTICAS
+                </a>
+            </div>
+        </div>
+
+        <!-- Down Arrow Indicator -->
+        <a href="#origens" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-400 hover:text-gold-400 animate-bounce transition-colors">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </a>
+    </section>
+
+    <!-- Origins Section (1985-2003) -->
+    <section id="origens" class="py-24 relative bg-cr7dark border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left: Visual Card -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-gold-500 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                    <div class="relative glass-panel rounded-3xl p-8 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800&auto=format&fit=crop" alt="Bola de Futebol" class="w-full h-80 object-cover rounded-2xl mb-6 opacity-80 group-hover:scale-105 transition-transform duration-700">
+                        <div class="flex justify-between items-center text-xs text-gold-400 font-mono tracking-widest uppercase mb-2">
+                            <span>Madeira ➔ Lisboa</span>
+                            <span>1985 — 2003</span>
+                        </div>
+                        <h3 class="text-2xl font-bold font-display tracking-wide text-white">DA HUMILDADE AO MUNDO</h3>
+                        <p class="text-gray-400 text-sm mt-2">O garoto franzino do Funchal que superou adversidades de saúde e saudades da família para encantar a Europa no Sporting CP.</p>
+                    </div>
+                </div>
+
+                <!-- Right: Narrative -->
+                <div class="space-y-6">
+                    <div class="inline-flex items-center space-x-2 text-red-500 font-bold text-sm tracking-widest uppercase">
+                        <i class="fa-solid fa-seedling"></i>
+                        <span>O Começo de Tudo</span>
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl font-display font-bold text-white uppercase leading-tight">
+                        Do Funchal ao <span class="gold-gradient-text">Sporting CP</span>
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed">
+                        Nascido no bairro humilde de Santo António, no Funchal (Ilha da Madeira), Cristiano Ronaldo dos Santos Aveiro demonstrou desde cedo uma paixão inabalável pela bola. Aos 12 anos, tomou a corajosa decisão de deixar a família para integrar a academia do **Sporting Clube de Portugal** em Lisboa.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Apesar dos desafios emocionais e de um problema cardíaco diagnosticado aos 15 anos (corrigido com sucesso via cirurgia a laser), sua determinação era inquebrável. Em agosto de 2003, no jogo de inauguração do Estádio José Alvalade contra o **Manchester United**, o jovem ponta de 18 anos deu um show inesquecível, encantando Sir Alex Ferguson.
+                    </p>
+                    
+                    <div class="p-4 rounded-xl bg-white/5 border-l-4 border-red-500 italic text-gray-300">
+                        "Depois do jogo contra o Sporting, os nossos jogadores no balneário só falavam dele. Disseram: 'Chefe, tem de contratá-lo!'"
+                        <span class="block text-right text-xs font-bold text-gold-400 mt-2 font-sans opacity-80">— Sir Alex Ferguson</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Timeline Section -->
+    <section id="carreira" class="py-24 bg-cr7card relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 font-bold text-sm tracking-widest uppercase"><i class="fa-solid fa-timeline mr-2"></i>Trajetória Gloriosa</span>
+                <h2 class="text-4xl sm:text-6xl font-display font-bold uppercase text-white mt-2">A Ascensão de uma <span class="gold-gradient-text">Lenda</span></h2>
+                <p class="text-gray-400 mt-2">Passagens marcantes pelos maiores clubes do planeta futebolístico.</p>
+            </div>
+
+            <!-- Interactive Timeline -->
+            <div class="relative timeline-line">
+                
+                <!-- Item 1: Manchester United (1ª Passagem) -->
+                <div class="mb-16 flex flex-col md:flex-row items-center justify-between w-full">
+                    <div class="order-1 md:w-5/12 text-right pr-0 md:pr-8 mb-4 md:mb-0">
+                        <span class="text-gold-400 font-mono font-bold text-lg">2003 — 2009</span>
+                        <h3 class="text-2xl font-bold font-display text-white mt-1">Manchester United: O Nascimento do CR7</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                            Herdeiro da camisa 7 de Beckham e Best, CR7 evoluiu de um ponta habilidoso para o melhor jogador do mundo. Em 2008, conquistou a Premier League, a Champions League e sua **1ª Bola de Ouro**.
+                        </p>
+                        <div class="flex justify-end gap-2 mt-3 text-xs font-semibold text-gray-300">
+                            <span class="bg-red-900/40 border border-red-500/30 px-3 py-1 rounded-full">292 Jogos</span>
+                            <span class="bg-gold-900/40 border border-gold-500/30 px-3 py-1 rounded-full">118 Gols</span>
+                        </div>
+                    </div>
+                    <div class="z-20 order-1 flex items-center justify-center w-10 h-10 bg-red-600 rounded-full shadow-lg shadow-red-600/50">
+                        <i class="fa-solid fa-[#000] fa-shirt text-white text-xs"></i>
+                    </div>
+                    <div class="order-1 md:w-5/12 pl-0 md:pl-8">
+                        <div class="glass-panel p-4 rounded-2xl hover:border-red-500/50 transition-all">
+                            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600&auto=format&fit=crop" alt="Old Trafford" class="rounded-xl object-cover h-44 w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Real Madrid -->
+                <div class="mb-16 flex flex-col md:flex-row-reverse items-center justify-between w-full">
+                    <div class="order-1 md:w-5/12 text-left pl-0 md:pl-8 mb-4 md:mb-0">
+                        <span class="text-gold-400 font-mono font-bold text-lg">2009 — 2018</span>
+                        <h3 class="text-2xl font-bold font-display text-white mt-1">Real Madrid: A Era Galáctica</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                            Apresentado para 80.000 pessoas no Bernabéu. Média superior a 1 gol por jogo! Tornou-se o maior artilheiro da história do Real Madrid com 451 gols, ganhando 4 Champions League e mais 4 Bolas de Ouro.
+                        </p>
+                        <div class="flex justify-start gap-2 mt-3 text-xs font-semibold text-gray-300">
+                            <span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full">438 Jogos</span>
+                            <span class="bg-gold-900/40 border border-gold-500/30 px-3 py-1 rounded-full">451 Gols</span>
+                        </div>
+                    </div>
+                    <div class="z-20 order-1 flex items-center justify-center w-10 h-10 bg-gold-500 rounded-full shadow-lg shadow-gold-500/50 text-black font-bold">
+                        <i class="fa-solid fa-trophy text-sm"></i>
+                    </div>
+                    <div class="order-1 md:w-5/12 pr-0 md:pr-8">
+                        <div class="glass-panel p-4 rounded-2xl hover:border-gold-500/50 transition-all">
+                            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=600&auto=format&fit=crop" alt="Estádio do Madrid" class="rounded-xl object-cover h-44 w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: Juventus -->
+                <div class="mb-16 flex flex-col md:flex-row items-center justify-between w-full">
+                    <div class="order-1 md:w-5/12 text-right pr-0 md:pr-8 mb-4 md:mb-0">
+                        <span class="text-gold-400 font-mono font-bold text-lg">2018 — 2021</span>
+                        <h3 class="text-2xl font-bold font-display text-white mt-1">Juventus: O Domínio na Itália</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                            Nova liga, o mesmo impacto devastador. Bateu recordes na Serie A italiana, sagrando-se bicampeão italiano e ultrapassando a marca dos 100 gols pela "Vecchia Signora" em tempo recorde.
+                        </p>
+                        <div class="flex justify-end gap-2 mt-3 text-xs font-semibold text-gray-300">
+                            <span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full">134 Jogos</span>
+                            <span class="bg-gold-900/40 border border-gold-500/30 px-3 py-1 rounded-full">101 Gols</span>
+                        </div>
+                    </div>
+                    <div class="z-20 order-1 flex items-center justify-center w-10 h-10 bg-gray-200 text-black rounded-full shadow-lg">
+                        <i class="fa-solid fa-shield-halved text-sm"></i>
+                    </div>
+                    <div class="order-1 md:w-5/12 pl-0 md:pl-8">
+                        <div class="glass-panel p-4 rounded-2xl hover:border-white/40 transition-all">
+                            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600&auto=format&fit=crop" alt="Futebol Itália" class="rounded-xl object-cover h-44 w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Retorno ao United & Al-Nassr -->
+                <div class="flex flex-col md:flex-row-reverse items-center justify-between w-full">
+                    <div class="order-1 md:w-5/12 text-left pl-0 md:pl-8 mb-4 md:mb-0">
+                        <span class="text-gold-400 font-mono font-bold text-lg">2021 — PRESENTE</span>
+                        <h3 class="text-2xl font-bold font-display text-white mt-1">Retorno a Manchester & Pioneirismo no Al-Nassr</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                            Após o regresso a Old Trafford, CR7 abriu portas para uma nova era no futebol global ao assinar com o **Al-Nassr** na Arábia Saudita, mantendo ritmo avassalador de gols em busca da marca dos **1000 gols oficiais**.
+                        </p>
+                        <div class="flex justify-start gap-2 mt-3 text-xs font-semibold text-gray-300">
+                            <span class="bg-yellow-600/30 border border-yellow-500/40 px-3 py-1 rounded-full text-gold-400">Rumo aos 1000 Gols</span>
+                        </div>
+                    </div>
+                    <div class="z-20 order-1 flex items-center justify-center w-10 h-10 bg-yellow-500 text-black rounded-full shadow-lg shadow-yellow-500/50 font-bold">
+                        <i class="fa-solid fa-star text-sm"></i>
+                    </div>
+                    <div class="order-1 md:w-5/12 pr-0 md:pr-8">
+                        <div class="glass-panel p-4 rounded-2xl hover:border-yellow-500/50 transition-all">
+                            <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=600&auto=format&fit=crop" alt="Futebol Oriente Médio" class="rounded-xl object-cover h-44 w-full">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Seleção Portuguesa Section -->
+    <section id="selecao" class="py-24 relative bg-cr7dark overflow-hidden border-t border-b border-white/5">
+        <!-- Subtle Portugal Flag Accent Background -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-red-900/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-1/3 h-full bg-green-900/10 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-green-500 font-bold text-sm tracking-widest uppercase mb-3">
+                        <i class="fa-solid fa-flag"></i>
+                        <span>Orgulho de uma Nação</span>
+                    </div>
+                    <h2 class="text-4xl sm:text-6xl font-display font-bold text-white uppercase leading-tight mb-6">
+                        O Maior Artilheiro por <span class="text-red-500">Seleções</span> da História
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Pela Seleção das Quinas, Cristiano Ronaldo reescreveu a história do futebol português. Comandou a equipa nacional na conquista inédita da **Eurocopa 2016** em França e na **UEFA Nations League 2019**.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 my-6">
+                        <div class="glass-panel p-4 rounded-xl border-l-4 border-red-600">
+                            <span class="block text-3xl font-display font-bold text-white">EURO 2016</span>
+                            <span class="text-xs text-gray-400 uppercase">Campeão Europeu</span>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl border-l-4 border-green-600">
+                            <span class="block text-3xl font-display font-bold text-white">NATIONS 2019</span>
+                            <span class="text-xs text-gray-400 uppercase">Campeão da Liga das Nações</span>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-400 text-sm italic">
+                        Superou o recorde de Ali Daei e tornou-se o homem com mais gols por uma seleção nacional no planeta.
+                    </p>
+                </div>
+
+                <!-- Portugal Stats Card -->
+                <div class="relative">
+                    <div class="glass-panel p-8 rounded-3xl red-border-glow text-center relative overflow-hidden">
+                        <div class="absolute -top-12 -right-12 w-40 h-40 bg-red-600/20 rounded-full blur-2xl"></div>
+                        <i class="fa-solid fa-shield-cat text-6xl text-red-500/40 mb-4"></i>
+                        <span class="block font-display text-7xl font-extrabold gold-gradient-text counter" data-target="132">0</span>
+                        <span class="text-sm font-bold uppercase tracking-widest text-gray-300">Gols pela Seleção Principal</span>
+                        <div class="mt-6 pt-6 border-t border-white/10 grid grid-cols-2 gap-4 text-center">
+                            <div>
+                                <span class="block font-display text-3xl font-bold text-white">200+</span>
+                                <span class="text-xs text-gray-400 uppercase">Internacionalizações</span>
+                            </div>
+                            <div>
+                                <span class="block font-display text-3xl font-bold text-white">5</span>
+                                <span class="text-xs text-gray-400 uppercase">Copas do Mundo disputadas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Trophies Section -->
+    <section id="conquistas" class="py-24 bg-cr7card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-gold-400 font-bold text-sm tracking-widest uppercase"><i class="fa-solid fa-award mr-2"></i>Galeria de Honra</span>
+                <h2 class="text-4xl sm:text-6xl font-display font-bold uppercase text-white mt-2">Títulos e <span class="gold-gradient-text">Conquistas</span></h2>
+                <p class="text-gray-400 mt-2">Filtre por equipe para explorar a sala de troféus da carreira de CR7.</p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="trophyFilters">
+                <button onclick="filterTrophies('all')" class="trophy-btn active px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gold-500 text-black transition-all">Todos</button>
+                <button onclick="filterTrophies('real')" class="trophy-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10 transition-all">Real Madrid</button>
+                <button onclick="filterTrophies('united')" class="trophy-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10 transition-all">Man. United</button>
+                <button onclick="filterTrophies('juve')" class="trophy-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10 transition-all">Juventus</button>
+                <button onclick="filterTrophies('portugal')" class="trophy-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10 transition-all">Portugal</button>
+                <button onclick="filterTrophies('individual')" class="trophy-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10 transition-all">Individuais</button>
+            </div>
+
+            <!-- Trophies Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="trophiesGrid">
+                
+                <!-- Trophy 1 -->
+                <div class="trophy-card real individual glass-panel p-6 rounded-2xl gold-border-glow flex items-start space-x-4">
+                    <div class="p-4 bg-gold-500/10 rounded-2xl text-gold-400">
+                        <i class="fa-solid fa-trophy text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gold-400 font-mono font-bold">5x Vencedor</span>
+                        <h4 class="text-xl font-bold font-display text-white">Bola de Ouro (Ballon d'Or)</h4>
+                        <p class="text-gray-400 text-xs mt-1">2008, 2013, 2014, 2016, 2017</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 2 -->
+                <div class="trophy-card real united glass-panel p-6 rounded-2xl gold-border-glow flex items-start space-x-4">
+                    <div class="p-4 bg-gold-500/10 rounded-2xl text-gold-400">
+                        <i class="fa-solid fa-champagne-glasses text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gold-400 font-mono font-bold">5x Campeão</span>
+                        <h4 class="text-xl font-bold font-display text-white">UEFA Champions League</h4>
+                        <p class="text-gray-400 text-xs mt-1">2008 (Man Utd), 2014, 2016, 2017, 2018 (Real)</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 3 -->
+                <div class="trophy-card individual real united juve glass-panel p-6 rounded-2xl gold-border-glow flex items-start space-x-4">
+                    <div class="p-4 bg-gold-500/10 rounded-2xl text-gold-400">
+                        <i class="fa-solid fa-shoe-prints text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gold-400 font-mono font-bold">4x Vencedor</span>
+                        <h4 class="text-xl font-bold font-display text-white">Chuteira de Ouro Europeia</h4>
+                        <p class="text-gray-400 text-xs mt-1">2008, 2011, 2014, 2015</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 4 -->
+                <div class="trophy-card portugal glass-panel p-6 rounded-2xl border border-red-500/30 flex items-start space-x-4">
+                    <div class="p-4 bg-red-600/10 rounded-2xl text-red-500">
+                        <i class="fa-solid fa-earth-europe text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-red-400 font-mono font-bold">1x Campeão</span>
+                        <h4 class="text-xl font-bold font-display text-white">UEFA Eurocopa</h4>
+                        <p class="text-gray-400 text-xs mt-1">França 2016 (Seleção Portuguesa)</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 5 -->
+                <div class="trophy-card real glass-panel p-6 rounded-2xl flex items-start space-x-4">
+                    <div class="p-4 bg-white/5 rounded-2xl text-gray-300">
+                        <i class="fa-solid fa-crown text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 font-mono font-bold">2x Campeão</span>
+                        <h4 class="text-xl font-bold font-display text-white">La Liga Espanhola</h4>
+                        <p class="text-gray-400 text-xs mt-1">2011-12, 2016-17</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 6 -->
+                <div class="trophy-card united glass-panel p-6 rounded-2xl flex items-start space-x-4">
+                    <div class="p-4 bg-red-600/10 rounded-2xl text-red-400">
+                        <i class="fa-solid fa-shield text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-red-400 font-mono font-bold">3x Campeão</span>
+                        <h4 class="text-xl font-bold font-display text-white">Premier League</h4>
+                        <p class="text-gray-400 text-xs mt-1">2006-07, 2007-08, 2008-09</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 7 -->
+                <div class="trophy-card juve glass-panel p-6 rounded-2xl flex items-start space-x-4">
+                    <div class="p-4 bg-white/5 rounded-2xl text-gray-300">
+                        <i class="fa-solid fa-certificate text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 font-mono font-bold">2x Campeão</span>
+                        <h4 class="text-xl font-bold font-display text-white">Serie A Italiana</h4>
+                        <p class="text-gray-400 text-xs mt-1">2018-19, 2019-20</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 8 -->
+                <div class="trophy-card real united glass-panel p-6 rounded-2xl flex items-start space-x-4">
+                    <div class="p-4 bg-gold-500/10 rounded-2xl text-gold-400">
+                        <i class="fa-solid fa-globe text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gold-400 font-mono font-bold">4x Campeão</span>
+                        <h4 class="text-xl font-bold font-display text-white">Mundial de Clubes FIFA</h4>
+                        <p class="text-gray-400 text-xs mt-1">2008, 2014, 2016, 2017</p>
+                    </div>
+                </div>
+
+                <!-- Trophy 9 -->
+                <div class="trophy-card portugal glass-panel p-6 rounded-2xl border border-green-500/30 flex items-start space-x-4">
+                    <div class="p-4 bg-green-600/10 rounded-2xl text-green-400">
+                        <i class="fa-solid fa-medal text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-green-400 font-mono font-bold">1x Campeão</span>
+                        <h4 class="text-xl font-bold font-display text-white">UEFA Nations League</h4>
+                        <p class="text-gray-400 text-xs mt-1">Portugal 2019</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Stats Section -->
+    <section id="estatisticas" class="py-24 bg-cr7dark border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 font-bold text-sm tracking-widest uppercase"><i class="fa-solid fa-chart-line mr-2"></i>Métricas Incomparáveis</span>
+                <h2 class="text-4xl sm:text-6xl font-display font-bold uppercase text-white mt-2">Estatísticas da <span class="gold-gradient-text">Carreira</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-3xl text-center relative hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-gold-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-gold-400 text-2xl">
+                        <i class="fa-solid fa-futbol"></i>
+                    </div>
+                    <span class="block font-display text-6xl font-bold text-white counter" data-target="140">0</span>
+                    <span class="text-sm font-bold uppercase text-gold-400 tracking-wider">Gols na Champions League</span>
+                    <p class="text-xs text-gray-400 mt-2">Maior artilheiro de todos os tempos da principal competição de clubes da Europa.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-3xl text-center relative hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-red-500 text-2xl">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <span class="block font-display text-6xl font-bold text-white counter" data-target="60">0</span>
+                    <span class="text-sm font-bold uppercase text-red-400 tracking-wider">Hat-Tricks na Carreira</span>
+                    <p class="text-xs text-gray-400 mt-2">Mais de 60 partidas marcando três ou mais gols no mesmo jogo.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-3xl text-center relative hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-blue-400 text-2xl">
+                        <i class="fa-solid fa-hands-clapping"></i>
+                    </div>
+                    <span class="block font-display text-6xl font-bold text-white counter" data-target="250">0</span>
+                    <span class="text-sm font-bold uppercase text-blue-400 tracking-wider">+ Assistências</span>
+                    <p class="text-xs text-gray-400 mt-2">Além do faro de gol inigualável, um criador decisivo de oportunidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section id="quotes" class="py-24 bg-cr7card relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <i class="fa-solid fa-quote-left text-6xl text-gold-500/20 mb-6"></i>
+            
+            <div id="quoteCarousel" class="min-h-[160px] flex items-center justify-center">
+                <p id="quoteText" class="text-2xl sm:text-4xl font-display font-bold text-white italic transition-opacity duration-500">
+                    "O vosso amor torna-me forte, o vosso ódio torna-me imparável."
+                </p>
+            </div>
+
+            <div class="mt-8 flex justify-center items-center space-x-4">
+                <button onclick="prevQuote()" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-gray-400 hover:text-white hover:border-gold-500 transition-all">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <span id="quoteIndicator" class="text-xs font-mono text-gold-400">1 / 4</span>
+                <button onclick="nextQuote()" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-gray-400 hover:text-white hover:border-gold-500 transition-all">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/10 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <div class="flex justify-center items-center space-x-3">
+                <span class="font-display text-4xl font-bold gold-gradient-text">CR7</span>
+            </div>
+            
+            <p class="max-w-md mx-auto text-xs text-gray-500">
+                Página tributo dedicada à celebração da carreira e legado inigualável de Cristiano Ronaldo. Trabalho, dedicação e busca incessante pela perfeição.
+            </p>
+
+            <div class="pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+                <span>&copy; Tributo Fan-made ao CR7. Todos os direitos reservados às fotos/marcas.</span>
+                <span class="mt-2 sm:mt-0 font-mono text-gold-400">"SIUUU!" ⚡</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Quotes Data
+        const quotes = [
+            "\"O vosso amor torna-me forte, o vosso ódio torna-me imparável.\"",
+            "\"Eu não sigo os recordes, os recordes é que me seguem.\"",
+            "\"Sem trabalho duro, o talento não é nada.\"",
+            "\"Eu sei que sou um bom profissional, sei que ninguém é tão duro comigo mesmo como eu próprio e isso nunca vai mudar.\""
+        ];
+        let currentQuote = 0;
+
+        function updateQuote() {
+            const quoteEl = document.getElementById('quoteText');
+            const indicatorEl = document.getElementById('quoteIndicator');
+            
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteEl.innerText = quotes[currentQuote];
+                indicatorEl.innerText = `${currentQuote + 1} / ${quotes.length}`;
+                quoteEl.style.opacity = 1;
+            }, 300);
+        }
+
+        function nextQuote() {
+            currentQuote = (currentQuote + 1) % quotes.length;
+            updateQuote();
+        }
+
+        function prevQuote() {
+            currentQuote = (currentQuote - 1 + quotes.length) % quotes.length;
+            updateQuote();
+        }
+
+        // Trophy Filter Functionality
+        function filterTrophies(category) {
+            const buttons = document.querySelectorAll('.trophy-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-gold-500', 'text-black');
+                btn.classList.add('bg-white/5', 'text-gray-300');
+            });
+            event.currentTarget.classList.remove('bg-white/5', 'text-gray-300');
+            event.currentTarget.classList.add('bg-gold-500', 'text-black');
+
+            const cards = document.querySelectorAll('.trophy-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // SIUUU Celebration Effect (Confetti + Synthetic Audio)
+        function triggerSiuuuEffect() {
+            // Confetti animation
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#EAB308', '#DC2626', '#FFFFFF', '#16A34A']
+            });
+
+            // Web Audio API Audio Synthesis for SIUUU Sound Effect
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    const ctx = new AudioContext();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.8);
+
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.8);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.8);
+                }
+            } catch (e) {
+                console.log("Audio contextual trigger ignored.");
+            }
+        }
+
+        // Counter Animation on Scroll
+        let animated = false;
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const inc = target / speed;
+
+                const updateCount = () => {
+                    count += inc;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        // Intersection Observer for Statistics Counter Trigger
+        const statsSection = document.getElementById('hero');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animated) {
+                    animateCounters();
+                    animated = true;
+                }
+            });
+        }, { threshold: 0.3 });
+
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
